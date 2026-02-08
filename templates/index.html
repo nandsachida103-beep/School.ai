@@ -1,211 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gurukul Convent School - AI Helpdesk</title>
+    <title>Sinoy - GCS AI Chatbot</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        h1, h2 { color: #2c3e50; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 5px 0; }
-        a { color: #3498db; text-decoration: none; cursor: pointer; }
-        a:hover { text-decoration: underline; }
-        .section { display: none; margin-top: 20px; padding: 10px; background: white; border: 1px solid #ddd; }
-        form { margin: 20px 0; }
-        input, button { padding: 10px; margin: 5px; }
-        button { background-color: #3498db; color: white; border: none; cursor: pointer; }
-        button:hover { background-color: #2980b9; }
-        .chat { border: 1px solid #ddd; padding: 10px; background: white; max-height: 300px; overflow-y: auto; }
-        .message { margin: 5px 0; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #e0e7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #chatbox {
+            width: 400px;
+            max-height: 600px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #header {
+            background: #4f46e5;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        #chatlog {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+        .message {
+            margin: 10px 0;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+        .user {
+            background: #dbeafe;
+            color: #1e40af;
+            align-self: flex-end;
+        }
+        .bot {
+            background: #eef2ff;
+            color: #4f46e5;
+            align-self: flex-start;
+        }
+        #inputbar {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        #sendBtn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #sendBtn:hover {
+            background: #4338ca;
+        }
     </style>
 </head>
 <body>
-    <h1>Gurukul Convent School</h1>
-    <div id="home">
-        <p><strong>Type:</strong> Co-educational</p>
-        <p><strong>Established:</strong> 2005</p>
-        <p><strong>Address:</strong> Siyarapar, Bahbol, Bansi, Siddharth Nagar</p>
-        <p><strong>Vision:</strong> To bring out the best in every student through holistic education</p>
-        <p><strong>Motto:</strong> Holistic Education, Diverse Learning</p>
-        <p><strong>GCS AI Project Founders:</strong> Shashi Kapoor, Prince Bharti</p>
-        <h3>Explore:</h3>
-        <ul>
-            <li><a onclick="showSection('basic')">Basic Details</a></li>
-            <li><a onclick="showSection('staff')">Teaching Staff</a></li>
-            <li><a onclick="showSection('class11')">Class 11 Students</a></li>
-            <li><a onclick="showSection('fees')">Fee Structure</a></li>
-            <li><a onclick="showSection('search')">Search</a></li>
-            <li><a onclick="showSection('chat')">AI Chat Helpdesk</a></li>
-        </ul>
-    </div>
-
-    <div id="basic" class="section">
-        <h2>Basic Details</h2>
-        <p>Type: Co-educational</p>
-        <p>Board: CBSE pattern, NCERT-based syllabus</p>
-        <p>Established: 2005</p>
-        <p>Max Students per Class: 40</p>
-        <p>Total Teaching Staff: 40+ teachers</p>
-        <p>General Timing: 10:00 AM – 3:00 PM</p>
-        <p>Section Timings: Nursery to UKG: 8:00 AM – 12:00 PM; Class I to XII: 9:30 AM – 2:00 PM</p>
-        <a onclick="hideSections()">Back</a>
-    </div>
-
-    <div id="staff" class="section">
-        <h2>Teaching Staff</h2>
-        <h3>Senior Teachers:</h3>
-        <ul>
-            <li>Mr. Kuldeep Kumar (Chemistry)</li>
-            <li>Mrs. Vibha Ma’am (Biology)</li>
-            <li>Mr. Manoj Dwivedi (Mathematics)</li>
-            <li>Mr. Manish Mishra (Physics)</li>
-            <li>Mr. Mohsin Khan (English)</li>
-            <li>Mrs. Kanchan Shukla (Hindi)</li>
-        </ul>
-        <h3>Junior Teachers:</h3>
-        <ul>
-            <li>Harshit Agrahari (Mathematics)</li>
-            <li>Sunil Sir (Mathematics)</li>
-            <li>Sehbal Sir (Physical Education)</li>
-            <li>Priya Ma’am (English)</li>
-            <li>Pooja Ma’am (Science)</li>
-            <li>Sweta Ma’am (Sanskrit / Art / Hindi)</li>
-            <li>Asha Ma’am</li>
-            <li>Laxmi Ma’am</li>
-            <li>Other junior-class teachers (names not specified)</li>
-        </ul>
-        <a onclick="hideSections()">Back</a>
-    </div>
-
-    <div id="class11" class="section">
-        <h2>Class 11 Students</h2>
-        <p>Fees: School Fee ₹2000, Coaching Fee ₹2000</p>
-        <h3>Boys:</h3>
-        <ul>
-            <li>Shashi Kapoor</li>
-            <li>Prince Bharti</li>
-            <li>Raunak Shukla</li>
-            <li>Siddharth Srivastav</li>
-            <li>Neeraj Kumar</li>
-            <li>Aditya Jaiswal</li>
-            <li>Anuj Chaubey</li>
-            <li>Vicky Agrahari</li>
-            <li>Zaid</li>
-            <li>Yuvraj Yadav</li>
-            <li>Prem Sagar</li>
-        </ul>
-        <h3>Girls:</h3>
-        <ul>
-            <li>Srushti Tripthi</li>
-            <li>Sahista Khatoon</li>
-            <li>Ishika Singh</li>
-            <li>Khushi Agrahari</li>
-            <li>Kritika Agrahari</li>
-            <li>Khushi Soni</li>
-            <li>Saziya Khatoon</li>
-            <li>Sristy Bharti</li>
-            <li>Aafrin Khan</li>
-            <li>Samayara</li>
-            <li>Eram</li>
-            <li>Rawan Siddique</li>
-            <li>Prasansa</li>
-            <li>Janvi Singh</li>
-            <li>Aditi</li>
-        </ul>
-        <a onclick="hideSections()">Back</a>
-    </div>
-
-    <div id="fees" class="section">
-        <h2>Fee Structure (Monthly)</h2>
-        <ul>
-            <li>Nursery: ₹500</li>
-            <li>LKG: ₹550</li>
-            <li>UKG: ₹600</li>
-            <li>Class 1: ₹700</li>
-            <li>Class 2: ₹800</li>
-            <li>Class 3: ₹900</li>
-            <li>Class 4: ₹1000</li>
-            <li>Class 5: ₹1100</li>
-            <li>Class 6: ₹1200</li>
-            <li>Class 7: ₹1300</li>
-            <li>Class 8: ₹1400</li>
-            <li>Class 9: ₹1500</li>
-            <li>Class 10: ₹1800</li>
-            <li>Class 11: ₹2000</li>
-            <li>Class 12: ₹2200</li>
-        </ul>
-        <a onclick="hideSections()">Back</a>
-    </div>
-
-    <div id="search" class="section">
-        <h2>Search</h2>
-        <form onsubmit="performSearch(event)">
-            <input type="text" id="searchQuery" placeholder="Enter name or query" required>
-            <button type="submit">Search</button>
-        </form>
-        <div id="searchResults"></div>
-        <a onclick="hideSections()">Back</a>
-    </div>
-
-    <div id="chat" class="section">
-        <h2>AI Chat Helpdesk</h2>
-        <div class="chat" id="chatBox"></div>
-        <form onsubmit="sendChat(event)">
-            <input type="text" id="chatQuery" placeholder="Ask me anything!" required>
-            <button type="submit">Send</button>
-        </form>
-        <a onclick="hideSections()">Back</a>
+    <div id="chatbox">
+        <div id="header">Sinoy - GCS AI</div>
+        <div id="chatlog"></div>
+        <div id="inputbar">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
     <script>
-        // Embedded school data (from data.py)
-        const schoolData = {
-            "basic_details": { "name": "Gurukul Convent School", "type": "Co-educational", "board": "CBSE pattern, NCERT-based syllabus", "established": 2005, "max_students_per_class": 40, "total_teaching_staff": "40+ teachers", "general_timing": "10:00 AM – 3:00 PM", "section_timings": { "Nursery to UKG": "8:00 AM – 12:00 PM", "Class I to XII": "9:30 AM – 2:00 PM" } },
-            "address": "Siyarapar, Bahbol, Bansi, Siddharth Nagar",
-            "management": { "director": "Mr. Shailesh Pandey", "principal": "Mrs. Neha Pandey", "vice_principal": "Mr. Ram Jit Yadav", "system_manager": "Mr. Mustkeem Sir" },
-            "vision_mission_motto": { "motto": "Holistic Education, Diverse Learning", "mission": ["Diverse learning strategies", "Moral values and discipline", "Leadership development", "Life skills and personality building"], "vision": "To bring out the best in every student through holistic education" },
-            "teaching_staff": { "senior_teachers": [{ "name": "Mr. Kuldeep Kumar", "subject": "Chemistry" }, { "name": "Mrs. Vibha Ma’am", "subject": "Biology" }, { "name": "Mr. Manoj Dwivedi", "subject": "Mathematics" }, { "name": "Mr. Manish Mishra", "subject": "Physics" }, { "name": "Mr. Mohsin Khan", "subject": "English" }, { "name": "Mrs. Kanchan Shukla", "subject": "Hindi" }], "junior_teachers": [{ "name": "Harshit Agrahari", "subject": "Mathematics" }, { "name": "Sunil Sir", "subject": "Mathematics" }, { "name": "Sehbal Sir", "subject": "Physical Education" }, { "name": "Priya Ma’am", "subject": "English" }, { "name": "Pooja Ma’am", "subject": "Science" }, { "name": "Sweta Ma’am", "subject": "Sanskrit / Art / Hindi" }, { "name": "Asha Ma’am" }, { "name": "Laxmi Ma’am" }, { "name": "Other junior-class teachers (names not specified)" }] },
-            "class_11": { "fees": { "school_fee": "₹2000", "coaching_fee": "₹2000" }, "boys": ["Shashi Kapoor", "Prince Bharti", "Raunak Shukla", "Siddharth Srivastav", "Neeraj Kumar", "Aditya Jaiswal", "Anuj Chaubey", "Vicky Agrahari", "Zaid", "Yuvraj Yadav", "Prem Sagar"], "girls": ["Srushti Tripthi", "Sahista Khatoon", "Ishika Singh", "Khushi Agrahari", "Kritika Agrahari", "Khushi Soni", "Saziya Khatoon", "Sristy Bharti", "Aafrin Khan", "Samayara", "Eram", "Rawan Siddique", "Prasansa", "Janvi Singh", "Aditi"] },
-            "fee_structure": { "Nursery": "₹500", "LKG": "₹550", "UKG": "₹600", "Class 1": "₹700", "Class 2": "₹800", "Class 3": "₹900", "Class 4": "₹1000", "Class 5": "₹1100", "Class 6": "₹1200", "Class 7": "₹1300", "Class 8": "₹1400", "Class 9": "₹1500", "Class 10": "₹1800", "Class 11": "₹2000", "Class 12": "₹2200" }
-        };
+        const chatlog = document.getElementById("chatlog");
 
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-        }
+        function sendMessage() {
+            let msg = document.getElementById("userInput").value;
+            if(msg.trim() == "") return;
 
-        function hideSections() {
-            document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-            document.getElementById('home').style.display = 'block';
-        }
+            // Show user message
+            chatlog.innerHTML += `<div class='message user'><b>You:</b> ${msg}</div>`;
+            chatlog.scrollTop = chatlog.scrollHeight;
 
-        function performSearch(event) {
-            event.preventDefault();
-            const query = document.getElementById('searchQuery').value.toLowerCase();
-            let results = [];
-            // Search students and staff
-            const allNames = schoolData.class_11.boys.concat(schoolData.class_11.girls).concat(schoolData.teaching_staff.senior_teachers.map(t => t.name)).concat(schoolData.teaching_staff.junior_teachers.map(t => t.name));
-            allNames.forEach(name => {
-                if (name.toLowerCase().includes(query)) results.push(name);
+            // Send to Flask
+            fetch("/get_response", {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: "message=" + encodeURIComponent(msg)
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatlog.innerHTML += `<div class='message bot'><b>Sinoy:</b> ${data.response}</div>`;
+                chatlog.scrollTop = chatlog.scrollHeight;
             });
-            document.getElementById('searchResults').innerHTML = results.length ? '<ul>' + results.map(r => '<li>' + r + '</li>').join('') + '</ul>' : 'No matches found.';
+
+            document.getElementById("userInput").value = "";
         }
 
-        function sendChat(event) {
-            event.preventDefault();
-            const query = document.getElementById('chatQuery').value.toLowerCase();
-            let response = 'Sorry, I couldn\'t understand that.';
-            if (query.includes('principal')) response = 'The Principal is ' + schoolData.management.principal + '.';
-            else if (query.includes('fee') && query.includes('11')) response = 'Class 11 Fees: School Fee ' + schoolData.class_11.fees.school_fee + ', Coaching Fee ' + schoolData.class_11.fees.coaching_fee + '.';
-            else if (query.includes('address')) response = 'School Address: ' + schoolData.address + '.';
-            // Add more rules as needed
-            const chatBox = document.getElementById('chatBox');
-            chatBox.innerHTML += '<div class="message"><strong>You:</strong> ' + document.getElementById('chatQuery').value + '</div>';
-            chatBox.innerHTML += '<div class="message"><strong>AI:</strong> ' + response + '</div>';
-            document.getElementById('chatQuery').value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+        // Allow Enter key to send message
+        document.getElementById("userInput").addEventListener("keyup", function(e) {
+            if (e.key === "Enter") sendMessage();
+        });
     </script>
 </body>
-  </html>
+</html>
